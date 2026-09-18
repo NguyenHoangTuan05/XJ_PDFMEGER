@@ -1,0 +1,680 @@
+﻿<Window x:Class="PDFMeger.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="XJ-PDF-MEGER"
+        Icon="images/logo.png"
+        Width="1200"
+        Height="760"
+        MinWidth="950"
+        MinHeight="600"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F7FA"
+        AllowDrop="True"
+        Drop="Window_Drop"
+        DragOver="Window_DragOver">
+
+    <Window.Resources>
+
+        <!-- Button -->
+        <Style x:Key="PrimaryButton"
+               TargetType="Button">
+
+            <Setter Property="Background"
+                    Value="#1677FF"/>
+
+            <Setter Property="Foreground"
+                    Value="White"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Padding"
+                    Value="20,10"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="8"
+                            Padding="{TemplateBinding Padding}">
+
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+
+        <!-- Secondary Button -->
+
+        <Style x:Key="SecondaryButton"
+               TargetType="Button">
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="Foreground"
+                    Value="#1677FF"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#BBD7FF"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="Padding"
+                    Value="16,9"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8"
+                            Padding="{TemplateBinding Padding}">
+
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+
+                        </Border>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+
+        <!-- Delete Button -->
+
+        <Style x:Key="DeleteButton"
+               TargetType="Button"
+               BasedOn="{StaticResource SecondaryButton}">
+
+            <Setter Property="Foreground"
+                    Value="#FF4D4F"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#FFB5B5"/>
+
+        </Style>
+
+
+        <!-- DataGrid -->
+
+        <Style TargetType="DataGrid">
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#E6EAF0"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="RowHeight"
+                    Value="78"/>
+
+            <Setter Property="HeadersVisibility"
+                    Value="Column"/>
+
+            <Setter Property="GridLinesVisibility"
+                    Value="None"/>
+
+            <Setter Property="AutoGenerateColumns"
+                    Value="False"/>
+
+            <Setter Property="CanUserAddRows"
+                    Value="False"/>
+
+            <Setter Property="SelectionMode"
+                    Value="Single"/>
+
+            <Setter Property="SelectionUnit"
+                    Value="FullRow"/>
+
+        </Style>
+
+
+        <Style TargetType="DataGridColumnHeader">
+
+            <Setter Property="Background"
+                    Value="#FAFBFC"/>
+
+            <Setter Property="Foreground"
+                    Value="#52606D"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Padding"
+                    Value="12"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+        </Style>
+
+
+        <Style TargetType="DataGridRow">
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Style.Triggers>
+
+                <Trigger Property="IsSelected"
+                         Value="True">
+
+                    <Setter Property="Background"
+                            Value="#EAF3FF"/>
+
+                    <Setter Property="Foreground"
+                            Value="#172B4D"/>
+
+                </Trigger>
+
+            </Style.Triggers>
+
+        </Style>
+
+    </Window.Resources>
+
+
+    <Grid Margin="28">
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="*"/>
+
+            <RowDefinition Height="Auto"/>
+
+        </Grid.RowDefinitions>
+
+
+        <!-- ================= HEADER ================= -->
+
+        <Grid Grid.Row="0"
+              Margin="0,0,0,24">
+
+            <Grid.ColumnDefinitions>
+
+                <ColumnDefinition/>
+
+                <ColumnDefinition Width="Auto"/>
+
+            </Grid.ColumnDefinitions>
+
+
+            <StackPanel Orientation="Horizontal">
+
+                <!-- PDF Icon -->
+
+                <Border Width="64"
+                        Height="64"
+                        Background="#1677FF"
+                        CornerRadius="14">
+
+                    <TextBlock
+                        Text="PDF"
+                        Foreground="White"
+                        FontWeight="Bold"
+                        FontSize="17"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"/>
+
+                </Border>
+
+
+                <StackPanel Margin="18,0,0,0"
+                            VerticalAlignment="Center">
+
+                    <TextBlock
+                        Text="PDF Merge"
+                        FontSize="30"
+                        FontWeight="Bold"
+                        Foreground="#172B4D"/>
+
+                    <TextBlock
+                        Text="Ghép nhiều file PDF thành một file duy nhất"
+                        FontSize="14"
+                        Foreground="#697586"
+                        Margin="0,5,0,0"/>
+
+                </StackPanel>
+
+            </StackPanel>
+
+
+            <!-- Statistics -->
+
+            <StackPanel
+    Grid.Column="1"
+    Orientation="Horizontal">
+
+                <!-- Tổng số file -->
+                <Border
+        Background="White"
+        BorderBrush="#E4EAF2"
+        BorderThickness="1"
+        CornerRadius="10"
+        Padding="16,11"
+        Margin="0,0,10,0">
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                Text="▣"
+                FontSize="20"
+                Foreground="#52606D"
+                VerticalAlignment="Center"/>
+
+                        <TextBlock
+                x:Name="FileCountText"
+                Text="0 file"
+                FontSize="14"
+                Foreground="#172B4D"
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Tổng số trang (MỚI THÊM) -->
+                <Border
+        Background="White"
+        BorderBrush="#E4EAF2"
+        BorderThickness="1"
+        CornerRadius="10"
+        Padding="16,11"
+        Margin="0,0,10,0">
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                Text="📄"
+                FontSize="16"
+                Foreground="#52606D"
+                VerticalAlignment="Center"/>
+
+                        <TextBlock
+                x:Name="TotalPageCountText"
+                Text="Tổng: 0 trang"
+                FontSize="14"
+                Foreground="#172B4D"
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Tổng dung lượng -->
+                <Border
+        Background="White"
+        BorderBrush="#E4EAF2"
+        BorderThickness="1"
+        CornerRadius="10"
+        Padding="16,11">
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                Text="◉"
+                FontSize="20"
+                Foreground="#52606D"
+                VerticalAlignment="Center"/>
+
+                        <TextBlock
+                x:Name="TotalSizeText"
+                Text="Tổng dung lượng: 0 MB"
+                FontSize="14"
+                Foreground="#172B4D"
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+
+        </Grid>
+
+
+        <!-- ================= DROP AREA ================= -->
+
+        <Border
+            Grid.Row="1"
+            Height="150"
+            Margin="0,0,0,24"
+            Background="#F8FBFF"
+            BorderBrush="#9CC5FF"
+            BorderThickness="1.5"
+            CornerRadius="10"
+            AllowDrop="True"
+            Drop="DropZone_Drop"
+            DragOver="DropZone_DragOver">
+
+            <StackPanel
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+
+                <TextBlock
+                    Text="Kéo thả file PDF vào đây"
+                    FontSize="18"
+                    FontWeight="SemiBold"
+                    Foreground="#1677FF"
+                    HorizontalAlignment="Center"/>
+
+                <TextBlock
+                    Text="hoặc"
+                    FontSize="13"
+                    Foreground="#8A94A6"
+                    HorizontalAlignment="Center"
+                    Margin="0,4"/>
+
+                <Button
+                    Content="＋  Thêm PDF"
+                    Style="{StaticResource PrimaryButton}"
+                    Click="AddPdf_Click"
+                    Padding="22,9"/>
+
+            </StackPanel>
+
+        </Border>
+
+
+        <!-- ================= TABLE ================= -->
+
+        <Border
+            Grid.Row="2"
+            Background="White"
+            BorderBrush="#E5E9F0"
+            BorderThickness="1"
+            CornerRadius="10"
+            ClipToBounds="True">
+
+            <DataGrid
+                x:Name="PdfDataGrid"
+                CanUserSortColumns="False"
+                ItemsSource="{Binding PdfFiles}"
+                SelectionChanged="PdfDataGrid_SelectionChanged"
+                PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown"
+                PreviewMouseMove="DataGrid_PreviewMouseMove"
+                Drop="DataGrid_Drop"
+                DragOver="DataGrid_DragOver"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.CanContentScroll="True"
+                MaxHeight="500">
+                <!-- Bạn có thể chỉnh MaxHeight hoặc bỏ dòng này nếu DataGrid nằm trong <RowDefinition Height="*"/> của Grid -->
+
+                <!-- Căn giữa TẤT CẢ các tiêu đề cột (Header) -->
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="Padding" Value="8,10"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+
+                <!-- Style căn giữa nội dung ô (DataGridCell) theo chiều dọc -->
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="DataGridCell">
+                                    <Border Background="{TemplateBinding Background}" 
+                                Padding="12,0" 
+                                SnapsToDevicePixels="True">
+                                        <ContentPresenter VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.CellStyle>
+
+                <DataGrid.Columns>
+
+                    <!-- # -->
+                    <DataGridTextColumn Header="#" Width="60" Binding="{Binding Index}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <!-- FILE -->
+                    <DataGridTemplateColumn Header="File" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid VerticalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="45"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Width="38" Height="46" Background="#FFF1F0" CornerRadius="6">
+                                        <TextBlock Text="PDF" Foreground="#FF4D4F" FontWeight="Bold" FontSize="11"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="14,0,0,0">
+                                        <TextBlock Text="{Binding FileName}" FontSize="14" FontWeight="SemiBold" 
+                                       Foreground="#172B4D" TextTrimming="CharacterEllipsis"/>
+                                        <TextBlock Text="{Binding FilePath}" FontSize="12" Foreground="#8A94A6" 
+                                       Margin="0,4,0,0" TextTrimming="CharacterEllipsis"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- SỐ TRANG -->
+                    <DataGridTextColumn Header="Số trang" Width="120" Binding="{Binding PageCount}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <!-- DUNG LƯỢNG -->
+                    <DataGridTextColumn Header="Dung lượng" Width="150" Binding="{Binding FileSize}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <!-- THAO TÁC -->
+                    <DataGridTemplateColumn Header="Thao tác" Width="230">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                                    <!-- Nút Lên -->
+                                    <Button Content="&#x2191;" 
+                        Width="48" Height="40" Margin="0,0,8,0" 
+                        FontSize="18" FontWeight="Bold"
+                        FontFamily="Segoe UI Symbol"
+                        Style="{StaticResource SecondaryButton}" 
+                        Click="MoveUp_Click"/>
+
+                                    <!-- Nút Xuống -->
+                                    <Button Content="&#x2193;" 
+                        Width="48" Height="40" Margin="0,0,8,0" 
+                        FontSize="18" FontWeight="Bold"
+                        FontFamily="Segoe UI Symbol"
+                        Style="{StaticResource SecondaryButton}" 
+                        Click="MoveDown_Click"/>
+
+                                    <!-- Nút Xóa -->
+                                    <Button Content="&#xE107;" 
+                        Width="48" Height="40" 
+                        FontSize="16"
+                        FontFamily="Segoe MDL2 Assets"
+                        Style="{StaticResource DeleteButton}" 
+                        Click="Delete_Click"/>
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Border>
+
+
+        <!-- ================= FOOTER ================= -->
+
+        <Border
+            Grid.Row="3"
+            Margin="0,18,0,0"
+            Background="White"
+            BorderBrush="#E5E9F0"
+            BorderThickness="1"
+            CornerRadius="10"
+            Padding="12">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition/>
+
+                    <ColumnDefinition Width="Auto"/>
+
+                </Grid.ColumnDefinitions>
+
+
+                <!-- STATUS -->
+
+                <StackPanel
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    Margin="8,0">
+
+                    <Border
+                        Width="42"
+                        Height="42"
+                        Background="#F5F8FC"
+                        CornerRadius="8">
+
+                        <TextBlock
+                            Text="▤"
+                            FontSize="22"
+                            Foreground="#52606D"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"/>
+
+                    </Border>
+
+
+                    <TextBlock
+                        x:Name="SelectedInfoText"
+                        Text="0 file đã chọn    |    0 MB"
+                        Foreground="#52606D"
+                        FontSize="14"
+                        VerticalAlignment="Center"
+                        Margin="12,0,0,0"/>
+
+                </StackPanel>
+
+
+                <!-- ACTIONS -->
+
+                <StackPanel
+                    Grid.Column="1"
+                    Orientation="Horizontal">
+
+                    <Button
+                        Content="↑  Lên trên"
+                        Style="{StaticResource SecondaryButton}"
+                        Width="115"
+                        Height="44"
+                        Margin="0,0,10,0"
+                        Click="MoveUpFooter_Click"/>
+
+                    <Button
+                        Content="↓  Xuống dưới"
+                        Style="{StaticResource SecondaryButton}"
+                        Width="125"
+                        Height="44"
+                        Margin="0,0,10,0"
+                        Click="MoveDownFooter_Click"/>
+
+                    <Button
+                        Content="🗑  Xóa tất cả"
+                        Style="{StaticResource DeleteButton}"
+                        Width="125"
+                        Height="44"
+                        Margin="0,0,24,0"
+                        Click="DeleteFooter_Click"/>
+
+                    <Button
+                        Content="⇆  Merge PDF"
+                        Style="{StaticResource PrimaryButton}"
+                        Width="180"
+                        Height="44"
+                        Click="MergePdf_Click"/>
+
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</Window>

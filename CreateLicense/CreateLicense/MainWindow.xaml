@@ -1,0 +1,234 @@
+﻿<Window x:Class="PDFMeger.CreateLicense"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="HT-LICENSE-MANAGER"
+        Icon="images/desktop.png" Height="680" Width="920"
+        WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize"
+        Background="#F8FAFC" FontFamily="Segoe UI">
+
+    <Window.Resources>
+        <!-- Style Button Nhanh -->
+        <Style x:Key="QuickChipStyle" TargetType="Button">
+            <Setter Property="Background" Value="#F1F5F9"/>
+            <Setter Property="Foreground" Value="#475569"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Margin" Value="0,0,6,0"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#E2E8F0"/>
+                    <Setter Property="Foreground" Value="#0F172A"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Title Bar -->
+            <RowDefinition Height="*"/>
+            <!-- Main Body -->
+            <RowDefinition Height="Auto"/>
+            <!-- Footer -->
+        </Grid.RowDefinitions>
+
+        <!-- 1. Custom Title Bar -->
+        <Border Grid.Row="0" Background="#0B1320" Padding="16,10">
+            <Grid>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Ellipse Width="12" Height="12" Fill="#FF5F56" Margin="0,0,8,0"/>
+                    <Ellipse Width="12" Height="12" Fill="#FFBD2E" Margin="0,0,8,0"/>
+                    <Ellipse Width="12" Height="12" Fill="#27C93F" Margin="0,0,16,0"/>
+                    <TextBlock Text="CREATE-LICENSE" Foreground="#94A3B8" FontWeight="Bold" FontSize="11" VerticalAlignment="Center"/>
+                </StackPanel>
+                <Border HorizontalAlignment="Right" Background="#1E293B" CornerRadius="4" Padding="8,2">
+                    <TextBlock Text="v2.5.0" Foreground="#64748B" FontSize="11" FontWeight="SemiBold"/>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- 2. Main Body -->
+        <Grid Grid.Row="1" Margin="32,24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Header Section -->
+                <RowDefinition Height="Auto"/>
+                <!-- Form Inputs Section -->
+                <RowDefinition Height="Auto"/>
+                <!-- Action Button Section -->
+                <RowDefinition Height="*"/>
+                <!-- Result Output Section -->
+            </Grid.RowDefinitions>
+
+            <!-- Header Section -->
+            <Grid Grid.Row="0" Margin="0,0,0,28">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <Border Width="56" Height="56" Background="#1877F2" CornerRadius="16" Margin="0,0,16,0">
+                        <TextBlock Text="&lt;/&gt;" Foreground="White" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="Tạo Mã Bản Quyền" FontSize="22" FontWeight="Bold" Foreground="#0F172A"/>
+                        <TextBlock Text="Công cụ tạo License Key từ Mã máy &amp; Ngày hết hạn" FontSize="13" Foreground="#64748B" Margin="0,4,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Tab Switcher -->
+                <Border Grid.Column="1" Background="#F1F5F9" CornerRadius="12" Padding="4" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <Border Background="White" CornerRadius="8" Padding="14,8" Margin="4,0,0,0">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="8" Color="#000" Opacity="0.05" ShadowDepth="2"/>
+                            </Border.Effect>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&lt;/&gt; " Foreground="#1877F2" FontWeight="Bold"/>
+                                <TextBlock Text="Tạo Mã License (Admin)" Foreground="#1877F2" FontWeight="Bold" FontSize="13"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Inputs Section -->
+            <Grid Grid.Row="1" Margin="0,0,0,24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="24"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- 1. Hardware ID Input -->
+                <StackPanel Grid.Column="0">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <TextBlock Text="1. NHẬP MÃ MÁY (MAC) " FontSize="12" FontWeight="Bold" Foreground="#1E293B"/>
+                        <TextBlock Text="*" Foreground="#EF4444" FontWeight="Bold"/>
+                    </StackPanel>
+
+                    <Border Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="10" Padding="8,4">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="⚙" Foreground="#94A3B8" FontSize="14" VerticalAlignment="Center" Margin="6,0,8,0"/>
+                            <TextBox x:Name="TxtHwidInput" Grid.Column="1" Text="HT-88F4-992A-4B10" VerticalAlignment="Center" BorderThickness="0" Background="Transparent" FontSize="13" FontWeight="SemiBold" Foreground="#1E293B"/>
+                            <Button Grid.Column="2" Content="Máy này" Click="BtnCurrentMachine_Click" Background="#E2E8F0" Foreground="#475569" BorderThickness="0" Padding="10,6" FontSize="12" FontWeight="SemiBold" Cursor="Hand">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </Grid>
+                    </Border>
+                    <TextBlock Text="Mã định danh phần cứng máy tính khách hàng." FontSize="11" Foreground="#94A3B8" Margin="0,6,0,0"/>
+                </StackPanel>
+
+                <!-- 2. Date Check Input -->
+                <StackPanel Grid.Column="2">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <TextBlock Text="2. CHỌN NGÀY HẾT HẠN (DATE CHECK) " FontSize="12" FontWeight="Bold" Foreground="#1E293B"/>
+                        <TextBlock Text="*" Foreground="#EF4444" FontWeight="Bold"/>
+                    </StackPanel>
+
+                    <Border Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="10" Padding="8,4">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="📅" Foreground="#94A3B8" FontSize="14" VerticalAlignment="Center" Margin="6,0,8,0"/>
+                            <DatePicker x:Name="DpExpiry" Grid.Column="1" BorderThickness="0" VerticalAlignment="Center" Background="Transparent"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Quick Selection Chips -->
+                    <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                        <TextBlock Text="Nhanh:" FontSize="12" Foreground="#94A3B8" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <Button Content="30 ngày" Style="{StaticResource QuickChipStyle}" Click="BtnAddDays_Click" Tag="30"/>
+                        <Button Content="90 ngày" Style="{StaticResource QuickChipStyle}" Click="BtnAddDays_Click" Tag="90"/>
+                        <Button Content="1 năm" Style="{StaticResource QuickChipStyle}" Click="BtnAddDays_Click" Tag="365"/>
+                        <Button Content="Vĩnh viễn" Style="{StaticResource QuickChipStyle}" Click="BtnAddDays_Click" Tag="3650"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+            <!-- 3. Generate Button -->
+            <Button Grid.Row="2" Click="BtnGenerate_Click" Height="48" Margin="0,0,0,24" Background="#1877F2" BorderThickness="0" Cursor="Hand">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Text="🪄 " Foreground="White" FontSize="14"/>
+                                <TextBlock Text="TẠO MÃ LICENSE BẢN QUYỀN (GENERATE)" Foreground="White" FontWeight="Bold" FontSize="13"/>
+                            </StackPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <!-- 4. Result Output Area -->
+            <StackPanel Grid.Row="3">
+                <Grid Margin="0,0,0,8">
+                    <TextBlock Text="3. CHUỖI MÃ LICENSE ĐÃ MÃ HÓA (GENERATED LICENSE KEY)" FontSize="12" FontWeight="Bold" Foreground="#1E293B"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock Text="🔒 " Foreground="#10B981" FontSize="12"/>
+                        <TextBlock Text="Đã mã hóa bảo mật" Foreground="#10B981" FontSize="12" FontWeight="SemiBold"/>
+                    </StackPanel>
+                </Grid>
+
+                <Border Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="12" Padding="16" Height="140">
+                    <Grid>
+                        <TextBox x:Name="TxtOutputKey" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" BorderThickness="0" Background="Transparent" Foreground="#64748B" FontSize="13" VerticalScrollBarVisibility="Auto">
+                            Mã License được mã hóa tổng hợp từ Mã máy + Ngày hết hạn sẽ xuất hiện ở đây...
+                        </TextBox>
+
+                        <Button Click="BtnCopyOutput_Click" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#1877F2" BorderThickness="0" Padding="14,8" Cursor="Hand">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" CornerRadius="8" Padding="{TemplateBinding Padding}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="📋 " Foreground="White" FontSize="12"/>
+                                            <TextBlock Text="Sao chép Mã" Foreground="White" FontWeight="Bold" FontSize="12"/>
+                                        </StackPanel>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </Grid>
+
+        <!-- 3. Footer Bar -->
+        <Border Grid.Row="2" Background="#F1F5F9" BorderBrush="#E2E8F0" BorderThickness="0,1,0,0" Padding="32,12">
+            <Grid>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="🛡 " Foreground="#64748B"/>
+                    <TextBlock Text="Thuật toán mã hóa AES/Base64 Token" Foreground="#64748B" FontSize="12" FontWeight="SemiBold"/>
+                </StackPanel>
+                <TextBlock Text="Hỗ trợ hệ thống Windows / MacOS" Foreground="#64748B" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
